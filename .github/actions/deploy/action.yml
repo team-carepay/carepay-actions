@@ -1,0 +1,33 @@
+name: Deploy to central-config
+description: Deploy to central-config
+inputs:
+  APP:
+    description: For example `health-hub-web`
+    required: true
+  APP_PATH:
+    description: For example `frontend/health-hub-web`
+    required: true
+  COUNTRY:
+    description: For example `ae`
+    required: true
+  STAGE:
+    description: For example `acc`
+    required: true
+  TAG:
+    description: For example `v1.2.3`
+    required: true
+runs:
+  using: 'composite'
+  steps:
+    - uses: actions/checkout@v3
+    - name: Deploy ${{ inputs.APP }}@${{ inputs.TAG }} to ${{ inputs.COUNTRY }}-${{ inputs.STAGE }}
+      shell: bash
+      working-directory: .github/workflows
+      run: ./central-config-updater.sh
+      env:
+        APP: ${{ inputs.APP }}
+        APP_PATH: ${{ inputs.APP_PATH }}
+        COUNTRY: ${{ inputs.COUNTRY }}
+        STAGE: ${{ inputs.STAGE }}
+        BITBUCKET_APP_PASSWORD: ${{ secrets.BITBUCKET_APP_PASSWORD }}
+        TAG: ${{ inputs.TAG }}
