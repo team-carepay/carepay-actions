@@ -19,18 +19,13 @@ inputs:
 runs:
   using: 'composite'
   steps:
-    - name: Output
-      shell: bash
-      run: |
-        pwd
-        ls -al
     - name: Deploy ${{ inputs.APP }}@${{ inputs.TAG }} to ${{ inputs.COUNTRY }}-${{ inputs.STAGE }}
       shell: bash
-      run: ./.carepay-actions/.github/actions/deploy/central-config-updater.sh
+      working-directory: ./.carepay-actions
+      run: ./.github/actions/deploy/central-config-updater.sh
       env:
         APP: ${{ inputs.APP }}
         APP_PATH: ${{ inputs.APP_PATH }}
         COUNTRY: ${{ inputs.COUNTRY }}
         STAGE: ${{ inputs.STAGE }}
-        # BITBUCKET_APP_PASSWORD: ${{ secrets.BITBUCKET_APP_PASSWORD }}
         TAG: ${{ inputs.TAG }}
