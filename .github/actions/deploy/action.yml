@@ -22,8 +22,7 @@ runs:
     - uses: actions/checkout@v3
     - name: Deploy ${{ inputs.APP }}@${{ inputs.TAG }} to ${{ inputs.COUNTRY }}-${{ inputs.STAGE }}
       shell: bash
-      working-directory: .github/actions/deploy
-      run: ./central-config-updater.sh
+      run: ./.github/actions/deploy/central-config-updater.sh
       env:
         APP: ${{ inputs.APP }}
         APP_PATH: ${{ inputs.APP_PATH }}
