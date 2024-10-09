@@ -20,8 +20,8 @@ runs:
   using: 'composite'
   steps:
     - uses: actions/checkout@v3
+    - run: echo "Deploying ${{ inputs.APP }}@${{ inputs.TAG }} to ${{ inputs.COUNTRY }}-${{ inputs.STAGE }}"
     - name: Deploy ${{ inputs.APP }}@${{ inputs.TAG }} to ${{ inputs.COUNTRY }}-${{ inputs.STAGE }}
-      shell: bash
       working-directory: .carepay-actions
       run: ./.github/actions/deploy/central-config-updater.sh
       env:
